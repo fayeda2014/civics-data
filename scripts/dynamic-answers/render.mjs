@@ -159,7 +159,6 @@ function sourcesHTML(data, { inline }) {
  * ------------------------------------------------------------------ */
 
 export function renderPage(data) {
-  const jsonName = "civics-dynamic-v1.json";
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -253,11 +252,6 @@ ${stateRowsHTML(data, { inline: false })}
   </tbody>
 </table></div>
 
-<h2>Machine-readable feed</h2>
-<p>The app reads this same data as JSON. It is regenerated on a schedule and is free to use.</p>
-<pre><code>${esc(jsonName)}</code></pre>
-<p>Every field carries the source it came from and the timestamp it was verified, so a consumer can tell an officially-sourced answer from one carried forward after a source outage.</p>
-
 <h2>Where this comes from</h2>
 <ul>
 ${sourcesHTML(data, { inline: false })}
@@ -287,7 +281,7 @@ ${sourcesHTML(data, { inline: false })}
  * renderWordPressFragment() if it gets stripped.
  * ------------------------------------------------------------------ */
 
-export function renderWordPressScoped(data, { jsonUrl } = {}) {
+export function renderWordPressScoped(data) {
   const R = "cp-dyn"; // every rule is scoped to this wrapper so nothing leaks
   return `<style>
 .${R}{color:${INK};font-size:16px;line-height:1.55}
@@ -331,9 +325,6 @@ ${nationalRowsHTML(data, { inline: false })}
 ${stateRowsHTML(data, { inline: false })}
 </tbody></table></div>
 
-<h2>Machine-readable feed</h2>
-<p>The CivicsPro app reads this same data as JSON${jsonUrl ? ` from <a href="${esc(jsonUrl)}">${esc(jsonUrl)}</a>` : ""}. Every field carries the source it came from and the time it was verified.</p>
-
 <h2>Where this comes from</h2>
 <ul>
 ${sourcesHTML(data, { inline: false })}
@@ -352,12 +343,11 @@ ${sourcesHTML(data, { inline: false })}
 
 /**
  * @param {object}  opts
- * @param {string}  opts.jsonUrl   link to the machine-readable feed
  * @param {string}  opts.fullUrl   link to the full page, used when rosters are off
  * @param {boolean} opts.rosters   include every district's representative
  *                                 (~440 names, ~40 KB) or just the district count
  */
-export function renderWordPressFragment(data, { jsonUrl, fullUrl, rosters = true } = {}) {
+export function renderWordPressFragment(data, { fullUrl, rosters = true } = {}) {
   // Tables are wrapped in Gutenberg's own `wp-block-table` markup so the active
   // block theme styles the cells. That is what keeps this variant to a
   // reasonable size: without it, every one of ~2,500 cells would have to carry
@@ -385,9 +375,6 @@ ${wrap(`<thead><tr><th ${th}>Question</th><th ${th}>Current answer</th></tr></th
       : ` Every district's representative by name is on <a href="${esc(fullUrl)}" style="color:${CRIMSON}">the full listing</a>.`
   }</p>
 ${wrap(`<thead><tr><th ${th}>State</th><th ${th}>Capital</th><th ${th}>Governor</th><th ${th}>U.S. Senators</th><th ${th}>U.S. Representative</th></tr></thead><tbody>${stateRowsHTML(data, { inline: false, rosters })}</tbody>`)}
-
-<h2 style="color:${NAVY}">Machine-readable feed</h2>
-<p>The CivicsPro app reads this same data as JSON${jsonUrl ? ` from <a href="${esc(jsonUrl)}" style="color:${CRIMSON}">${esc(jsonUrl)}</a>` : ""}. Every field carries the source it came from and the time it was verified.</p>
 
 <h2 style="color:${NAVY}">Where this comes from</h2>
 <ul>

@@ -43,15 +43,6 @@ const REPO = path.resolve(HERE, "..", "..");
 const SCHEMA_VERSION = 1;
 const OUTPUT_BASENAME = "civics-dynamic-v1.json";
 
-/**
- * Where the published feed will live. Point this at a custom subdomain once
- * DNS is in place — the app should never hard-code a github.io host it cannot
- * move off later.
- */
-const JSON_URL =
-  process.env.CIVICS_JSON_URL ??
-  "https://data.uscivicstest.us/api/civics-dynamic-v1.json";
-
 /** The full human-readable listing, linked from the shortened WordPress page. */
 const PAGE_URL =
   process.env.CIVICS_PAGE_URL ?? "https://data.uscivicstest.us/api/";
@@ -419,10 +410,10 @@ async function main() {
   // Two WordPress renderings: the scoped-<style> one is the default (far fewer
   // bytes), the all-inline one is the fallback for hosts that strip <style>
   // from post content.
-  await writeFile(path.join(OUT_DIR, "wordpress-scoped.html"), renderWordPressScoped(payload, { jsonUrl: JSON_URL }), "utf8");
+  await writeFile(path.join(OUT_DIR, "wordpress-scoped.html"), renderWordPressScoped(payload), "utf8");
   await writeFile(
     path.join(OUT_DIR, "wordpress-inline.html"),
-    renderWordPressFragment(payload, { jsonUrl: JSON_URL, fullUrl: PAGE_URL }),
+    renderWordPressFragment(payload, { fullUrl: PAGE_URL }),
     "utf8"
   );
   // Same page without the ~440 per-district names: small enough to paste by
@@ -430,7 +421,7 @@ async function main() {
   // push has credentials.
   await writeFile(
     path.join(OUT_DIR, "wordpress-compact.html"),
-    renderWordPressFragment(payload, { jsonUrl: JSON_URL, fullUrl: PAGE_URL, rosters: false }),
+    renderWordPressFragment(payload, { fullUrl: PAGE_URL, rosters: false }),
     "utf8"
   );
 

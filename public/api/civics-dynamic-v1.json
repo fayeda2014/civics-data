@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-13T02:26:39.763Z",
+  "generatedAt": "2026-08-13T02:33:31.811Z",
   "dynamicKinds": [
     "president",
     "vicePresident",
@@ -18,28 +18,28 @@
       "source": "whitehouse.gov",
       "sourceUrl": "https://www.whitehouse.gov/administration/",
       "confidence": "official",
-      "verifiedAt": "2026-08-13T02:26:39.763Z"
+      "verifiedAt": "2026-08-13T02:33:31.811Z"
     },
     "vicePresident": {
       "value": "JD Vance",
       "source": "whitehouse.gov",
       "sourceUrl": "https://www.whitehouse.gov/administration/",
       "confidence": "official",
-      "verifiedAt": "2026-08-13T02:26:39.763Z"
+      "verifiedAt": "2026-08-13T02:33:31.811Z"
     },
     "speaker": {
       "value": "Mike Johnson",
       "source": "house.gov",
       "sourceUrl": "https://www.house.gov/leadership",
       "confidence": "official",
-      "verifiedAt": "2026-08-13T02:26:39.763Z"
+      "verifiedAt": "2026-08-13T02:33:31.811Z"
     },
     "chiefJustice": {
       "value": "John G. Roberts, Jr.",
       "source": "supremecourt.gov",
       "sourceUrl": "https://www.supremecourt.gov/about/biographies.aspx",
       "confidence": "official",
-      "verifiedAt": "2026-08-13T02:26:39.763Z"
+      "verifiedAt": "2026-08-13T02:33:31.811Z"
     }
   },
   "states": {
