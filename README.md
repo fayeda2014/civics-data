@@ -9,10 +9,16 @@ Human-readable page: <https://data.uscivicstest.us/api/>
 
 ## The feed
 
-| URL | For |
-|---|---|
-| [`api/civics-dynamic-v1.min.json`](https://data.uscivicstest.us/api/civics-dynamic-v1.min.json) | apps — values only, ~17 KB (~4 KB gzipped) |
-| [`api/civics-dynamic-v1.json`](https://data.uscivicstest.us/api/civics-dynamic-v1.json) | auditing — adds per-field provenance, party, bioguide ids, cross-check results |
+| URL | For | Transfer size |
+|---|---|---|
+| [`api/civics-dynamic-v1.min.json`](https://data.uscivicstest.us/api/civics-dynamic-v1.min.json) | apps — the answers | 7 KB gzipped |
+| [`api/zip-districts-v1.json`](https://data.uscivicstest.us/api/zip-districts-v1.json) | apps — ZIP → district, so no runtime geocoding | 97 KB gzipped |
+| [`api/civics-dynamic-v1.json`](https://data.uscivicstest.us/api/civics-dynamic-v1.json) | auditing — per-field provenance, party, bioguide ids, cross-check results | — |
+
+Together those two files answer all eight questions with **no other network
+call**: fetch them once, cache both, and the app works offline afterwards. The
+answers change a few times a year; the crosswalk changes only on redistricting,
+so it can be cached far longer.
 
 ```jsonc
 {
@@ -39,6 +45,31 @@ The questions covered are 23 (your senators), 29 (your representative), 30
 (Speaker), 38 (President), 39 (Vice President), 57 (Chief Justice), 61 (your
 governor) and 62 (your state capital).
 
+### Looking someone up by ZIP
+
+```js
+const answers = await (await fetch(".../civics-dynamic-v1.min.json")).json();
+const { zips, zip3 } = await (await fetch(".../zip-districts-v1.json")).json();
+
+const hit = zips["48126"];                       // "MI12" | ["MI12","MI13"] | undefined
+if (hit) {
+  const options = (Array.isArray(hit) ? hit : [hit]).map((k) => {
+    const state = k.slice(0, 2), district = k.slice(2);
+    return { state, district, name: answers.states[state].representatives[district] };
+  });
+  // options.length > 1 → this ZIP straddles a boundary. Ask which district;
+  // do not pick one silently. name === null → that seat is currently vacant.
+} else {
+  const st = zip3["205"];                        // fallback: PO-box / unique ZIPs
+  // Gives state (so governor, senators, capital are answerable) but not district.
+}
+```
+
+**21.6% of ZIPs span more than one congressional district**, so the multi-value
+case is common, not exotic — 48126 covers both MI-12 and MI-13, and 90210 covers
+three. Resolving a ZIP to a single district by taking its centroid, which is what
+a geocoder does, is wrong for roughly one user in five.
+
 All 50 states plus DC and the five inhabited territories are included.
 Territories carry notes for the answers that do not apply to them — DC has a
 mayor rather than a governor, and no territory has US Senators.
@@ -57,6 +88,15 @@ association the officials belong to.
 | Chief Justice | [supremecourt.gov](https://www.supremecourt.gov/about/biographies.aspx) |
 | Governors (55) | [nga.org](https://www.nga.org/governors/) |
 | State capitals | verified constant in `states.mjs` |
+| ZIP → district | [us-zipcodes-congress](https://github.com/OpenSourceActivismTech/us-zipcodes-congress) (ZCTA→CD, from Census TIGER) |
+
+The ZIP crosswalk is the one source that is not itself official: the Census
+publishes no direct ZCTA-to-congressional-district relationship file, and HUD's
+equivalent needs an API key, which an unattended public build should not depend
+on. It is therefore checked against the House Clerk's live seat list on **every
+run** — if it references a district that does not exist, or misses one that does,
+the build fails rather than publishing. That is what catches a stale crosswalk
+after a redistricting.
 
 **Wikidata was evaluated and rejected.** Its `officeholder` (P1308) and `position
 held` (P39) statements return fictional presidents alongside real ones, and

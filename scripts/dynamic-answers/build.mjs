@@ -34,6 +34,7 @@ import {
   HOUSE_URL,
   NGA_URL,
 } from "./sources.mjs";
+import { fetchZipDistricts, validate as validateZips } from "./zip-districts.mjs";
 import { STATES, STATE_NAME_TO_CODE, FIFTY_STATES } from "./states.mjs";
 import { renderPage, renderWordPressFragment, renderWordPressScoped } from "./render.mjs";
 
@@ -42,6 +43,7 @@ const REPO = path.resolve(HERE, "..", "..");
 
 const SCHEMA_VERSION = 1;
 const OUTPUT_BASENAME = "civics-dynamic-v1.json";
+const ZIP_BASENAME = "zip-districts-v1.json";
 
 /** The full human-readable listing, linked from the shortened WordPress page. */
 const PAGE_URL =
@@ -99,6 +101,18 @@ function normalizeOverride(raw, label) {
   return o;
 }
 
+/** The last published crosswalk, used to carry ZIP support forward on failure. */
+async function loadPreviousZips() {
+  const p = path.join(OUT_DIR, ZIP_BASENAME);
+  if (!existsSync(p)) return null;
+  try {
+    return JSON.parse(await readFile(p, "utf8"));
+  } catch {
+    warn("previous ZIP crosswalk exists but could not be parsed; ignoring it");
+    return null;
+  }
+}
+
 async function loadOverrides() {
   try {
     const raw = JSON.parse(await readFile(path.join(HERE, "overrides.json"), "utf8"));
@@ -152,6 +166,8 @@ async function main() {
     attempt("clerk.house.gov", fetchRepresentatives),
     attempt("nga.org", () => fetchGovernors(STATE_NAME_TO_CODE)),
   ]);
+
+  const zipCrosswalk = await attempt("zip-districts crosswalk", fetchZipDistricts);
 
   /* ---------------- national ---------------- */
 
@@ -314,6 +330,54 @@ async function main() {
   );
   if (missingReps.length) fail(`missing representatives for: ${missingReps.join(", ")}`);
 
+  /* ---------------- ZIP → district crosswalk ---------------- */
+
+  let zips = zipCrosswalk?.zips ?? null;
+  let zip3 = zipCrosswalk?.zip3 ?? null;
+  let zipStats = zipCrosswalk?.stats ?? null;
+  let zipSource = zipCrosswalk?.sourceUrl ?? null;
+
+  if (!zips) {
+    // Same never-regress rule as every other field: a crosswalk that fails to
+    // download must not remove ZIP support from clients that already rely on it.
+    const priorZip = await loadPreviousZips();
+    if (priorZip?.zips && Object.keys(priorZip.zips).length) {
+      zips = priorZip.zips;
+      zip3 = priorZip.zip3 ?? null;
+      zipStats = priorZip.stats ?? null;
+      zipSource = priorZip.source ?? null;
+      warn(`could not fetch the ZIP crosswalk; carrying forward ${Object.keys(zips).length} ZIPs from ${priorZip.generatedAt}`);
+    } else {
+      fail("no ZIP → district crosswalk available and nothing previously published");
+    }
+  }
+
+  let zipCheck = null;
+  if (zips) {
+    zipCheck = validateZips(zips, states);
+    // A crosswalk referencing seats that do not exist, or missing seats that do,
+    // means it predates a redistricting. That is a wrong answer waiting to
+    // happen, so it is an error rather than a warning.
+    if (zipCheck.unknown.length) {
+      fail(
+        `ZIP crosswalk references ${zipCheck.unknown.length} district(s) that do not exist in the ${house?.congress ?? "current"} Congress: ` +
+          zipCheck.unknown.slice(0, 15).join(", ")
+      );
+    }
+    if (zipCheck.unmapped.length) {
+      fail(
+        `ZIP crosswalk has no ZIPs for ${zipCheck.unmapped.length} live district(s): ` +
+          zipCheck.unmapped.slice(0, 15).join(", ")
+      );
+    }
+    if (zipStats) {
+      note(
+        `ZIP crosswalk: ${zipStats.zipCount} ZIPs, ${zipStats.splitZipCount} spanning more than one district ` +
+          `(${((100 * zipStats.splitZipCount) / zipStats.zipCount).toFixed(1)}%)`
+      );
+    }
+  }
+
   /* ---------------- independent cross-check ---------------- */
 
   const checks = await Promise.all([
@@ -353,6 +417,9 @@ async function main() {
       "capital",
     ],
     congress: house?.congress ?? previous?.congress ?? null,
+    zipDistricts: zips
+      ? { url: ZIP_BASENAME, zipCount: Object.keys(zips).length, ...(zipCheck ? { districtsCovered: zipCheck.districtsInCrosswalk } : {}) }
+      : null,
     national,
     states,
     meta: {
@@ -383,6 +450,8 @@ async function main() {
     schemaVersion: SCHEMA_VERSION,
     generatedAt: startedAt,
     congress: payload.congress,
+    // Relative so a consumer holding either URL can find the other.
+    zipDistrictsUrl: zips ? ZIP_BASENAME : undefined,
     national: Object.fromEntries(Object.entries(national).map(([k, v]) => [k, v.value])),
     states: Object.fromEntries(
       Object.entries(states).map(([code, s]) => [
@@ -403,9 +472,38 @@ async function main() {
     ),
   };
 
+  /**
+   * The crosswalk is published as its own file rather than folded into the
+   * answers. It is ~30x the size and changes only on redistricting, so a client
+   * can fetch it once and cache it for a long time while still re-checking the
+   * answers daily. Both are relative to the same directory, so a consumer that
+   * has one URL can derive the other without knowing the host.
+   */
+  const zipDoc = zips
+    ? {
+        schemaVersion: SCHEMA_VERSION,
+        generatedAt: startedAt,
+        congress: payload.congress,
+        source: zipSource,
+        stats: zipStats,
+        zip3,
+        note:
+          "Keys are 5-digit ZIPs. A value is \"<STATE><DISTRICT>\" (district 0 = at-large " +
+          "or a territorial delegate). Where a ZIP spans more than one district the value " +
+          "is an array of all of them — ask the user which is theirs rather than guessing. " +
+          "\"zip3\" maps a 3-digit prefix to its state(s), for ZIPs with no ZCTA " +
+          "(PO-box and single-organisation ZIPs); it answers the governor, senator and " +
+          "capital questions but not the representative.",
+        zips,
+      }
+    : null;
+
   await mkdir(OUT_DIR, { recursive: true });
   await writeFile(path.join(OUT_DIR, OUTPUT_BASENAME), JSON.stringify(payload, null, 2) + "\n", "utf8");
   await writeFile(path.join(OUT_DIR, "civics-dynamic-v1.min.json"), JSON.stringify(compact) + "\n", "utf8");
+  if (zipDoc) {
+    await writeFile(path.join(OUT_DIR, ZIP_BASENAME), JSON.stringify(zipDoc) + "\n", "utf8");
+  }
   await writeFile(path.join(OUT_DIR, "index.html"), renderPage(payload), "utf8");
   // Two WordPress renderings: the scoped-<style> one is the default (far fewer
   // bytes), the all-inline one is the fallback for hosts that strip <style>
@@ -432,6 +530,7 @@ async function main() {
   console.log(`  output: ${path.join(OUT_DIR, OUTPUT_BASENAME)}`);
   console.log(`  president=${national.president?.value ?? "—"}  vp=${national.vicePresident?.value ?? "—"}`);
   console.log(`  speaker=${national.speaker?.value ?? "—"}  chiefJustice=${national.chiefJustice?.value ?? "—"}`);
+  console.log(`  zips=${zips?Object.keys(zips).length:0} (split=${zipStats?.splitZipCount ?? 0})`);
   console.log(`  senators=${senate?.count ?? 0}  seats=${house?.seatCount ?? 0} (${house?.vacantCount ?? 0} vacant)  governors=${Object.keys(governors?.byState ?? {}).length}`);
   if (notices.length) { console.log(`\nnotices (${notices.length}):`); line("·", notices); }
   if (warnings.length) { console.log(`\nwarnings (${warnings.length}):`); line("!", warnings); }

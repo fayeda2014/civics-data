@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-13T02:34:23.033Z",
+  "generatedAt": "2026-08-13T02:51:29.932Z",
   "dynamicKinds": [
     "president",
     "vicePresident",
@@ -12,34 +12,39 @@
     "capital"
   ],
   "congress": "119",
+  "zipDistricts": {
+    "url": "zip-districts-v1.json",
+    "zipCount": 33852,
+    "districtsCovered": 441
+  },
   "national": {
     "president": {
       "value": "Donald J. Trump",
       "source": "whitehouse.gov",
       "sourceUrl": "https://www.whitehouse.gov/administration/",
       "confidence": "official",
-      "verifiedAt": "2026-08-13T02:34:23.033Z"
+      "verifiedAt": "2026-08-13T02:51:29.932Z"
     },
     "vicePresident": {
       "value": "JD Vance",
       "source": "whitehouse.gov",
       "sourceUrl": "https://www.whitehouse.gov/administration/",
       "confidence": "official",
-      "verifiedAt": "2026-08-13T02:34:23.033Z"
+      "verifiedAt": "2026-08-13T02:51:29.932Z"
     },
     "speaker": {
       "value": "Mike Johnson",
       "source": "house.gov",
       "sourceUrl": "https://www.house.gov/leadership",
       "confidence": "official",
-      "verifiedAt": "2026-08-13T02:34:23.033Z"
+      "verifiedAt": "2026-08-13T02:51:29.932Z"
     },
     "chiefJustice": {
       "value": "John G. Roberts, Jr.",
       "source": "supremecourt.gov",
       "sourceUrl": "https://www.supremecourt.gov/about/biographies.aspx",
       "confidence": "official",
-      "verifiedAt": "2026-08-13T02:34:23.033Z"
+      "verifiedAt": "2026-08-13T02:51:29.932Z"
     }
   },
   "states": {
@@ -5799,10 +5804,13 @@
         "sourceUrl": "https://en.wikipedia.org/api/rest_v1/page/html/List_of_current_United_States_governors"
       }
     ],
-    "warnings": [],
+    "warnings": [
+      "previous published file exists but could not be parsed; ignoring it"
+    ],
     "errors": [],
     "notices": [
-      "4 House seat(s) currently vacant; published as vacancies"
+      "4 House seat(s) currently vacant; published as vacancies",
+      "ZIP crosswalk: 33852 ZIPs, 7299 spanning more than one district (21.6%)"
     ],
     "ok": true
   }
