@@ -50,11 +50,11 @@ const OUTPUT_BASENAME = "civics-dynamic-v1.json";
  */
 const JSON_URL =
   process.env.CIVICS_JSON_URL ??
-  "https://fayeda2014.github.io/civics-data/api/civics-dynamic-v1.json";
+  "https://data.uscivicstest.us/api/civics-dynamic-v1.json";
 
 /** The full human-readable listing, linked from the shortened WordPress page. */
 const PAGE_URL =
-  process.env.CIVICS_PAGE_URL ?? "https://fayeda2014.github.io/civics-data/api/";
+  process.env.CIVICS_PAGE_URL ?? "https://data.uscivicstest.us/api/";
 
 const args = process.argv.slice(2);
 const STRICT = args.includes("--strict");

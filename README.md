@@ -5,14 +5,14 @@ they depend on who currently holds office and where the applicant lives. This
 repository keeps those answers current, rebuilt daily from official US
 government sources, and publishes them as JSON and as a readable web page.
 
-Human-readable page: <https://fayeda2014.github.io/civics-data/api/>
+Human-readable page: <https://data.uscivicstest.us/api/>
 
 ## The feed
 
 | URL | For |
 |---|---|
-| [`api/civics-dynamic-v1.min.json`](https://fayeda2014.github.io/civics-data/api/civics-dynamic-v1.min.json) | apps — values only, ~17 KB (~4 KB gzipped) |
-| [`api/civics-dynamic-v1.json`](https://fayeda2014.github.io/civics-data/api/civics-dynamic-v1.json) | auditing — adds per-field provenance, party, bioguide ids, cross-check results |
+| [`api/civics-dynamic-v1.min.json`](https://data.uscivicstest.us/api/civics-dynamic-v1.min.json) | apps — values only, ~17 KB (~4 KB gzipped) |
+| [`api/civics-dynamic-v1.json`](https://data.uscivicstest.us/api/civics-dynamic-v1.json) | auditing — adds per-field provenance, party, bioguide ids, cross-check results |
 
 ```jsonc
 {
