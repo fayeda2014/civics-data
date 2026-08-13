@@ -1,0 +1,149 @@
+name: Refresh dynamic civics answers
+
+# Rebuilds the answers for the eight civics questions whose answers change
+# (President, VP, Speaker, Chief Justice, governor, senators, representative,
+# state capital) from official government sources, then publishes to Pages.
+#
+# Runs daily. The underlying facts change a handful of times a year, but a daily
+# cadence means the gap between an inauguration or a special election and the
+# published answer being correct is measured in hours, not app releases.
+
+on:
+  schedule:
+    # 09:20 UTC — after overnight US updates land, and off the top of the hour,
+    # where GitHub's scheduler is busiest and most likely to drop a run.
+    - cron: "20 9 * * *"
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: "Publish even if nothing changed"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  issues: write
+
+concurrency:
+  group: dynamic-answers
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.diff.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # --strict exits non-zero if an answer could not be resolved at all. The
+      # previously published file is on disk from the checkout, so one failing
+      # source is absorbed by carry-forward and only a genuine, unrecoverable
+      # gap stops the run.
+      - name: Build
+        run: node scripts/dynamic-answers/build.mjs --strict
+
+      - name: Detect changes
+        id: diff
+        run: |
+          if git diff --quiet -- public/api; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No change in published answers." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            {
+              echo "### Answers changed"
+              echo '```diff'
+              git diff --unified=0 -- public/api/civics-dynamic-v1.min.json
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Commit
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name  "civics-data-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/api
+          git commit -m "chore(data): refresh dynamic civics answers"
+          git push
+
+      # No-ops when WPCOM_TOKEN is absent, so this is useful before the
+      # WordPress credentials exist and better once they do.
+      - name: Update the page on uscivicstest.us
+        if: steps.diff.outputs.changed == 'true' || inputs.publish
+        env:
+          WPCOM_TOKEN: ${{ secrets.WPCOM_TOKEN }}
+          WPCOM_SITE_ID: "253454740"
+          WPCOM_PAGE_ID: "295"
+        run: node scripts/dynamic-answers/push-wordpress.mjs
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: refresh
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4
+
+  # A refresh that cannot resolve an answer is escalated rather than left in a
+  # log nobody reads. The issue is reused so a multi-day outage does not spam
+  # the tracker.
+  report-failure:
+    needs: refresh
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const body = [
+              `The scheduled refresh failed on ${new Date().toISOString().slice(0, 10)}.`,
+              "",
+              `Run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+              "",
+              "The published feed still serves the last good file, so this is not",
+              "user-facing yet. Likely causes: a source site changed its markup, or",
+              "an official feed is down. Check the run log for which source failed,",
+              "then either fix the parser in `scripts/dynamic-answers/sources.mjs`",
+              "or pin the correct value in `scripts/dynamic-answers/overrides.json`.",
+            ].join("\n");
+
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: "open",
+              labels: "dynamic-answers",
+            });
+
+            if (existing.data.length) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing.data[0].number,
+                body,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: "Dynamic civics answers: refresh failed",
+                body,
+                labels: ["dynamic-answers"],
+              });
+            }

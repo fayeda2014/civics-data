@@ -1,0 +1,31 @@
+{
+  "_README": [
+    "Manual overrides. Anything set here WINS over every fetched source and is",
+    "published as-is with `\"source\": \"manual-override\"`.",
+    "",
+    "BEFORE ADDING ONE: confirm the source is actually wrong. Open the raw feed and",
+    "read the record. An unfamiliar name is usually a real change, not a parse bug —",
+    "the pipeline exists because these answers change and memory goes stale. Every",
+    "senator record in senate.gov's XML carries a bioguide_id and a personal",
+    "senate.gov subdomain; a name with both is a sitting member, not a mis-parse.",
+    "An override that contradicts a correct source publishes a wrong answer to",
+    "people studying for their interview, which is the one outcome this whole",
+    "pipeline is built to prevent.",
+    "",
+    "Legitimate uses: the morning after an inauguration, before the source updates;",
+    "a resignation or death the Clerk has not published yet; a source that has",
+    "genuinely broken and is serving stale or malformed data.",
+    "",
+    "The build logs a warning whenever an override disagrees with its source, and a",
+    "notice once the source catches up so stale overrides are easy to find and",
+    "delete.",
+    "",
+    "Shapes — each value may be a bare value or { value, reviewBy, reason }:",
+    "  national.president|vicePresident|speaker|chiefJustice : \"Full Name\"",
+    "  states.<CODE>.governor                                 : \"Full Name\"",
+    "  states.<CODE>.senators                                 : [\"Name\", \"Name\"]",
+    "  states.<CODE>.representatives.<district>               : \"Full Name\""
+  ],
+  "national": {},
+  "states": {}
+}
