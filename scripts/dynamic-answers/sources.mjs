@@ -20,7 +20,7 @@ const UA =
 const TIMEOUT_MS = 30_000;
 
 /** Fetch with a timeout, a descriptive UA, and a hard failure on non-2xx. */
-async function get(url, { as = "text" } = {}) {
+async function once(url, as) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
   try {
@@ -34,6 +34,30 @@ async function get(url, { as = "text" } = {}) {
   } finally {
     clearTimeout(timer);
   }
+}
+
+/**
+ * Fetch, retrying a couple of times with backoff.
+ *
+ * These are ordinary public web servers being read from a shared CI runner, and
+ * some of them intermittently refuse or hang for that reason rather than because
+ * anything is wrong — nga.org did it on three nights out of five. One immediate
+ * retry and one after a few seconds clears nearly all of it, and costs nothing on
+ * the runs where the first attempt already worked.
+ */
+async function get(url, { as = "text", attempts = 3 } = {}) {
+  let lastErr;
+  for (let i = 0; i < attempts; i += 1) {
+    try {
+      return await once(url, as);
+    } catch (err) {
+      lastErr = err;
+      if (i < attempts - 1) {
+        await new Promise((r) => setTimeout(r, 1000 * 2 ** i));
+      }
+    }
+  }
+  throw new Error(`${lastErr.message} (after ${attempts} attempts)`);
 }
 
 /** Collapse whitespace and decode the handful of entities these feeds emit. */

@@ -60,16 +60,34 @@ const warnings = [];
 const errors = [];
 const notices = [];
 
+/** Sources that answered this run, for the staleness ceiling. */
+const sourceOk = new Set();
+
 const warn = (m) => warnings.push(m);
 const fail = (m) => errors.push(m);
 const note = (m) => notices.push(m);
 
-/** Run a fetcher, converting any throw into a recorded error + null result. */
+/**
+ * Run a fetcher, converting any throw into a warning and a null result.
+ *
+ * A warning, not an error: a source being unreachable is not by itself a reason
+ * to withhold a build. Carry-forward re-supplies every field that source feeds,
+ * and the structural checks further down still fail the build if anything is
+ * genuinely missing — no governor for a state, the wrong number of senators or
+ * seats, a crosswalk that disagrees with the roster.
+ *
+ * Treating it as an error meant nga.org timing out from a CI runner failed three
+ * of five nightly builds while carrying forward all 55 governors perfectly. The
+ * feed went unpublished, and the failure mail trained everyone to ignore it.
+ * Sustained outages are still caught, by the staleness ceiling below.
+ */
 async function attempt(label, fn) {
   try {
-    return await fn();
+    const value = await fn();
+    sourceOk.add(label);
+    return value;
   } catch (err) {
-    fail(`${label}: ${err.message}`);
+    warn(`${label}: ${err.message} — carrying forward the last good values`);
     return null;
   }
 }
@@ -399,6 +417,32 @@ async function main() {
     }
   }
 
+  /* ---------------- source staleness ceiling ---------------- */
+
+  /**
+   * A single failed fetch is a warning, because carry-forward covers it. A
+   * source that has not answered for days is different: the values it feeds are
+   * quietly ageing and nobody is being told. Record when each source last
+   * answered, and once that exceeds the ceiling, fail the build so the failure
+   * mail means something again.
+   */
+  const STALE_AFTER_DAYS = 5;
+  const sourceLastOk = { ...(previous?.meta?.sourceLastOk ?? {}) };
+  for (const label of sourceOk) sourceLastOk[label] = startedAt;
+
+  for (const [label, last] of Object.entries(sourceLastOk)) {
+    if (sourceOk.has(label)) continue;
+    const days = (Date.parse(startedAt) - Date.parse(last)) / 86_400_000;
+    if (Number.isFinite(days) && days > STALE_AFTER_DAYS) {
+      fail(
+        `${label} has not answered for ${days.toFixed(1)} days (since ${last}); ` +
+          `the values it supplies are stale and need a look`
+      );
+    } else if (Number.isFinite(days)) {
+      note(`${label} did not answer; last good ${days.toFixed(1)} days ago`);
+    }
+  }
+
   /* ---------------- emit ---------------- */
 
   const payload = {
@@ -433,6 +477,7 @@ async function main() {
         { name: "repository constant", url: null, provides: ["capital"] },
       ],
       crossChecks: checks,
+      sourceLastOk,
       warnings,
       errors,
       notices,
