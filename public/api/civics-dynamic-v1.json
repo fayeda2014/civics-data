@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-21T09:53:51.351Z",
+  "generatedAt": "2026-08-22T09:45:20.171Z",
   "dynamicKinds": [
     "president",
     "vicePresident",
@@ -23,28 +23,28 @@
       "source": "whitehouse.gov",
       "sourceUrl": "https://www.whitehouse.gov/administration/",
       "confidence": "official",
-      "verifiedAt": "2026-08-21T09:53:51.351Z"
+      "verifiedAt": "2026-08-22T09:45:20.171Z"
     },
     "vicePresident": {
       "value": "JD Vance",
       "source": "whitehouse.gov",
       "sourceUrl": "https://www.whitehouse.gov/administration/",
       "confidence": "official",
-      "verifiedAt": "2026-08-21T09:53:51.351Z"
+      "verifiedAt": "2026-08-22T09:45:20.171Z"
     },
     "speaker": {
       "value": "Mike Johnson",
       "source": "house.gov",
       "sourceUrl": "https://www.house.gov/leadership",
       "confidence": "official",
-      "verifiedAt": "2026-08-21T09:53:51.351Z"
+      "verifiedAt": "2026-08-22T09:45:20.171Z"
     },
     "chiefJustice": {
       "value": "John G. Roberts, Jr.",
       "source": "supremecourt.gov",
       "sourceUrl": "https://www.supremecourt.gov/about/biographies.aspx",
       "confidence": "official",
-      "verifiedAt": "2026-08-21T09:53:51.351Z"
+      "verifiedAt": "2026-08-22T09:45:20.171Z"
     }
   },
   "states": {
@@ -52,7 +52,7 @@
       "name": "Alabama",
       "capital": "Montgomery",
       "governor": "Kay Ivey",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Katie Boyd Britt",
         "Tommy Tuberville"
@@ -147,7 +147,7 @@
       "name": "Alaska",
       "capital": "Juneau",
       "governor": "Mike Dunleavy",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Lisa Murkowski",
         "Dan Sullivan"
@@ -189,7 +189,7 @@
       "name": "Arizona",
       "capital": "Phoenix",
       "governor": "Katie Hobbs",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Ruben Gallego",
         "Mark Kelly"
@@ -302,7 +302,7 @@
       "name": "Arkansas",
       "capital": "Little Rock",
       "governor": "Sarah Huckabee Sanders",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "John Boozman",
         "Tom Cotton"
@@ -370,7 +370,7 @@
       "name": "California",
       "capital": "Sacramento",
       "governor": "Gavin Newsom",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Alex Padilla",
         "Adam Schiff"
@@ -867,7 +867,7 @@
       "name": "Colorado",
       "capital": "Denver",
       "governor": "Jared Polis",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Michael Bennet",
         "John Hickenlooper"
@@ -971,7 +971,7 @@
       "name": "Connecticut",
       "capital": "Hartford",
       "governor": "Ned Lamont",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Richard Blumenthal",
         "Christopher Murphy"
@@ -1048,7 +1048,7 @@
       "name": "Delaware",
       "capital": "Dover",
       "governor": "Matt Meyer",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Lisa Blunt Rochester",
         "Christopher Coons"
@@ -1090,7 +1090,7 @@
       "name": "Florida",
       "capital": "Tallahassee",
       "governor": "Ron DeSantis",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Ashley Moody",
         "Rick Scott"
@@ -1371,7 +1371,7 @@
       "name": "Georgia",
       "capital": "Atlanta",
       "governor": "Brian Kemp",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Jon Ossoff",
         "Raphael Warnock"
@@ -1526,7 +1526,7 @@
       "name": "Hawaii",
       "capital": "Honolulu",
       "governor": "Josh Green",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Mazie Hirono",
         "Brian Schatz"
@@ -1576,7 +1576,7 @@
       "name": "Idaho",
       "capital": "Boise",
       "governor": "Brad Little",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Mike Crapo",
         "James Risch"
@@ -1626,7 +1626,7 @@
       "name": "Illinois",
       "capital": "Springfield",
       "governor": "JB Pritzker",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Tammy Duckworth",
         "Richard Durbin"
@@ -1812,7 +1812,7 @@
       "name": "Indiana",
       "capital": "Indianapolis",
       "governor": "Mike Braun",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Jim Banks",
         "Todd Young"
@@ -1925,7 +1925,7 @@
       "name": "Iowa",
       "capital": "Des Moines",
       "governor": "Kim Reynolds",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Joni Ernst",
         "Chuck Grassley"
@@ -1994,7 +1994,7 @@
       "name": "Kansas",
       "capital": "Topeka",
       "governor": "Laura Kelly",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Roger Marshall",
         "Jerry Moran"
@@ -2062,7 +2062,7 @@
       "name": "Kentucky",
       "capital": "Frankfort",
       "governor": "Andy Beshear",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Mitch McConnell",
         "Rand Paul"
@@ -2148,7 +2148,7 @@
       "name": "Louisiana",
       "capital": "Baton Rouge",
       "governor": "Jeff Landry",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Bill Cassidy",
         "John Kennedy"
@@ -2234,7 +2234,7 @@
       "name": "Maine",
       "capital": "Augusta",
       "governor": "Janet Mills",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Susan Collins",
         "Angus King"
@@ -2284,7 +2284,7 @@
       "name": "Maryland",
       "capital": "Annapolis",
       "governor": "Wes Moore",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Angela Alsobrooks",
         "Chris Van Hollen"
@@ -2388,7 +2388,7 @@
       "name": "Massachusetts",
       "capital": "Boston",
       "governor": "Maura Healey",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Edward Markey",
         "Elizabeth Warren"
@@ -2501,7 +2501,7 @@
       "name": "Michigan",
       "capital": "Lansing",
       "governor": "Gretchen Whitmer",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Gary Peters",
         "Elissa Slotkin"
@@ -2650,7 +2650,7 @@
       "name": "Minnesota",
       "capital": "Saint Paul",
       "governor": "Tim Walz",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Amy Klobuchar",
         "Tina Smith"
@@ -2754,7 +2754,7 @@
       "name": "Mississippi",
       "capital": "Jackson",
       "governor": "Tate Reeves",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Cindy Hyde-Smith",
         "Roger Wicker"
@@ -2822,7 +2822,7 @@
       "name": "Missouri",
       "capital": "Jefferson City",
       "governor": "Mike Kehoe",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Josh Hawley",
         "Eric Schmitt"
@@ -2926,7 +2926,7 @@
       "name": "Montana",
       "capital": "Helena",
       "governor": "Greg Gianforte",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Steve Daines",
         "Tim Sheehy"
@@ -2976,7 +2976,7 @@
       "name": "Nebraska",
       "capital": "Lincoln",
       "governor": "Jim Pillen",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Deb Fischer",
         "Pete Ricketts"
@@ -3035,7 +3035,7 @@
       "name": "Nevada",
       "capital": "Carson City",
       "governor": "Joe Lombardo",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Catherine Cortez Masto",
         "Jacky Rosen"
@@ -3103,7 +3103,7 @@
       "name": "New Hampshire",
       "capital": "Concord",
       "governor": "Kelly Ayotte",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Margaret Wood Hassan",
         "Jeanne Shaheen"
@@ -3153,7 +3153,7 @@
       "name": "New Jersey",
       "capital": "Trenton",
       "governor": "Mikie Sherrill",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Cory Booker",
         "Andy Kim"
@@ -3293,7 +3293,7 @@
       "name": "New Mexico",
       "capital": "Santa Fe",
       "governor": "Michelle Lujan Grisham",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Martin Heinrich",
         "Ben Ray Luján"
@@ -3352,7 +3352,7 @@
       "name": "New York",
       "capital": "Albany",
       "governor": "Kathy Hochul",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Kirsten Gillibrand",
         "Charles Schumer"
@@ -3619,7 +3619,7 @@
       "name": "North Carolina",
       "capital": "Raleigh",
       "governor": "Josh Stein",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Ted Budd",
         "Thom Tillis"
@@ -3777,7 +3777,7 @@
       "name": "North Dakota",
       "capital": "Bismarck",
       "governor": "Kelly Armstrong",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Kevin Cramer",
         "John Hoeven"
@@ -3819,7 +3819,7 @@
       "name": "Ohio",
       "capital": "Columbus",
       "governor": "Mike DeWine",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Jon Husted",
         "Bernie Moreno"
@@ -3986,7 +3986,7 @@
       "name": "Oklahoma",
       "capital": "Oklahoma City",
       "governor": "Kevin Stitt",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Alan Armstrong",
         "James Lankford"
@@ -4063,7 +4063,7 @@
       "name": "Oregon",
       "capital": "Salem",
       "governor": "Tina Kotek",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Jeff Merkley",
         "Ron Wyden"
@@ -4149,7 +4149,7 @@
       "name": "Pennsylvania",
       "capital": "Harrisburg",
       "governor": "Josh Shapiro",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "John Fetterman",
         "David McCormick"
@@ -4334,7 +4334,7 @@
       "name": "Rhode Island",
       "capital": "Providence",
       "governor": "Dan McKee",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Jack Reed",
         "Sheldon Whitehouse"
@@ -4384,7 +4384,7 @@
       "name": "South Carolina",
       "capital": "Columbia",
       "governor": "Henry McMaster",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Darline Graham",
         "Tim Scott"
@@ -4479,7 +4479,7 @@
       "name": "South Dakota",
       "capital": "Pierre",
       "governor": "Larry Rhoden",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Mike Rounds",
         "John Thune"
@@ -4522,7 +4522,7 @@
       "name": "Tennessee",
       "capital": "Nashville",
       "governor": "Bill Lee",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Marsha Blackburn",
         "Bill Hagerty"
@@ -4635,7 +4635,7 @@
       "name": "Texas",
       "capital": "Austin",
       "governor": "Greg Abbott",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "John Cornyn",
         "Ted Cruz"
@@ -5006,7 +5006,7 @@
       "name": "Utah",
       "capital": "Salt Lake City",
       "governor": "Spencer Cox",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "John Curtis",
         "Mike Lee"
@@ -5074,7 +5074,7 @@
       "name": "Vermont",
       "capital": "Montpelier",
       "governor": "Phil Scott",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Bernard Sanders",
         "Peter Welch"
@@ -5116,7 +5116,7 @@
       "name": "Virginia",
       "capital": "Richmond",
       "governor": "Abigail Spanberger",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Tim Kaine",
         "Mark Warner"
@@ -5247,7 +5247,7 @@
       "name": "Washington",
       "capital": "Olympia",
       "governor": "Bob Ferguson",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Maria Cantwell",
         "Patty Murray"
@@ -5369,7 +5369,7 @@
       "name": "West Virginia",
       "capital": "Charleston",
       "governor": "Patrick Morrisey",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Shelley Moore Capito",
         "James Justice"
@@ -5419,7 +5419,7 @@
       "name": "Wisconsin",
       "capital": "Madison",
       "governor": "Tony Evers",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "Tammy Baldwin",
         "Ron Johnson"
@@ -5523,7 +5523,7 @@
       "name": "Wyoming",
       "capital": "Cheyenne",
       "governor": "Mark Gordon",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [
         "John Barrasso",
         "Cynthia Lummis"
@@ -5593,7 +5593,7 @@
       "territory": true,
       "answerNote": "Puerto Rico is a territory, not a state.",
       "governor": "Jenniffer González-Colón",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [],
       "senatorsNote": "Puerto Rico does not have U.S. Senators.",
       "representatives": {
@@ -5619,7 +5619,7 @@
       "territory": true,
       "answerNote": "Guam is a territory, not a state.",
       "governor": "Lou Leon Guerrero",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [],
       "senatorsNote": "Guam does not have U.S. Senators.",
       "representatives": {
@@ -5645,7 +5645,7 @@
       "territory": true,
       "answerNote": "The U.S. Virgin Islands is a territory, not a state.",
       "governor": "Albert Bryan",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [],
       "senatorsNote": "U.S. Virgin Islands does not have U.S. Senators.",
       "representatives": {
@@ -5671,7 +5671,7 @@
       "territory": true,
       "answerNote": "American Samoa is a territory, not a state.",
       "governor": "Pula’ali’i Nikolao Pula",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [],
       "senatorsNote": "American Samoa does not have U.S. Senators.",
       "representatives": {
@@ -5697,7 +5697,7 @@
       "territory": true,
       "answerNote": "The Northern Mariana Islands is a territory, not a state.",
       "governor": "David M. Apatang",
-      "governorSource": "carried-forward",
+      "governorSource": "nga.org",
       "senators": [],
       "senatorsNote": "Northern Mariana Islands does not have U.S. Senators.",
       "representatives": {
@@ -5805,77 +5805,19 @@
       }
     ],
     "sourceLastOk": {
-      "house.gov/leadership": "2026-08-21T09:53:51.351Z",
-      "whitehouse.gov": "2026-08-21T09:53:51.351Z",
-      "supremecourt.gov": "2026-08-21T09:53:51.351Z",
-      "clerk.house.gov": "2026-08-21T09:53:51.351Z",
-      "senate.gov": "2026-08-21T09:53:51.351Z",
-      "nga.org": "2026-08-20T14:13:49.518Z",
-      "zip-districts crosswalk": "2026-08-21T09:53:51.351Z"
+      "house.gov/leadership": "2026-08-22T09:45:20.171Z",
+      "whitehouse.gov": "2026-08-22T09:45:20.171Z",
+      "supremecourt.gov": "2026-08-22T09:45:20.171Z",
+      "clerk.house.gov": "2026-08-22T09:45:20.171Z",
+      "senate.gov": "2026-08-22T09:45:20.171Z",
+      "nga.org": "2026-08-22T09:45:20.171Z",
+      "zip-districts crosswalk": "2026-08-22T09:45:20.171Z"
     },
-    "warnings": [
-      "nga.org: fetch failed (after 3 attempts) — carrying forward the last good values",
-      "AL: no governor from nga.org; carried forward \"Kay Ivey\"",
-      "AK: no governor from nga.org; carried forward \"Mike Dunleavy\"",
-      "AZ: no governor from nga.org; carried forward \"Katie Hobbs\"",
-      "AR: no governor from nga.org; carried forward \"Sarah Huckabee Sanders\"",
-      "CA: no governor from nga.org; carried forward \"Gavin Newsom\"",
-      "CO: no governor from nga.org; carried forward \"Jared Polis\"",
-      "CT: no governor from nga.org; carried forward \"Ned Lamont\"",
-      "DE: no governor from nga.org; carried forward \"Matt Meyer\"",
-      "FL: no governor from nga.org; carried forward \"Ron DeSantis\"",
-      "GA: no governor from nga.org; carried forward \"Brian Kemp\"",
-      "HI: no governor from nga.org; carried forward \"Josh Green\"",
-      "ID: no governor from nga.org; carried forward \"Brad Little\"",
-      "IL: no governor from nga.org; carried forward \"JB Pritzker\"",
-      "IN: no governor from nga.org; carried forward \"Mike Braun\"",
-      "IA: no governor from nga.org; carried forward \"Kim Reynolds\"",
-      "KS: no governor from nga.org; carried forward \"Laura Kelly\"",
-      "KY: no governor from nga.org; carried forward \"Andy Beshear\"",
-      "LA: no governor from nga.org; carried forward \"Jeff Landry\"",
-      "ME: no governor from nga.org; carried forward \"Janet Mills\"",
-      "MD: no governor from nga.org; carried forward \"Wes Moore\"",
-      "MA: no governor from nga.org; carried forward \"Maura Healey\"",
-      "MI: no governor from nga.org; carried forward \"Gretchen Whitmer\"",
-      "MN: no governor from nga.org; carried forward \"Tim Walz\"",
-      "MS: no governor from nga.org; carried forward \"Tate Reeves\"",
-      "MO: no governor from nga.org; carried forward \"Mike Kehoe\"",
-      "MT: no governor from nga.org; carried forward \"Greg Gianforte\"",
-      "NE: no governor from nga.org; carried forward \"Jim Pillen\"",
-      "NV: no governor from nga.org; carried forward \"Joe Lombardo\"",
-      "NH: no governor from nga.org; carried forward \"Kelly Ayotte\"",
-      "NJ: no governor from nga.org; carried forward \"Mikie Sherrill\"",
-      "NM: no governor from nga.org; carried forward \"Michelle Lujan Grisham\"",
-      "NY: no governor from nga.org; carried forward \"Kathy Hochul\"",
-      "NC: no governor from nga.org; carried forward \"Josh Stein\"",
-      "ND: no governor from nga.org; carried forward \"Kelly Armstrong\"",
-      "OH: no governor from nga.org; carried forward \"Mike DeWine\"",
-      "OK: no governor from nga.org; carried forward \"Kevin Stitt\"",
-      "OR: no governor from nga.org; carried forward \"Tina Kotek\"",
-      "PA: no governor from nga.org; carried forward \"Josh Shapiro\"",
-      "RI: no governor from nga.org; carried forward \"Dan McKee\"",
-      "SC: no governor from nga.org; carried forward \"Henry McMaster\"",
-      "SD: no governor from nga.org; carried forward \"Larry Rhoden\"",
-      "TN: no governor from nga.org; carried forward \"Bill Lee\"",
-      "TX: no governor from nga.org; carried forward \"Greg Abbott\"",
-      "UT: no governor from nga.org; carried forward \"Spencer Cox\"",
-      "VT: no governor from nga.org; carried forward \"Phil Scott\"",
-      "VA: no governor from nga.org; carried forward \"Abigail Spanberger\"",
-      "WA: no governor from nga.org; carried forward \"Bob Ferguson\"",
-      "WV: no governor from nga.org; carried forward \"Patrick Morrisey\"",
-      "WI: no governor from nga.org; carried forward \"Tony Evers\"",
-      "WY: no governor from nga.org; carried forward \"Mark Gordon\"",
-      "PR: no governor from nga.org; carried forward \"Jenniffer González-Colón\"",
-      "GU: no governor from nga.org; carried forward \"Lou Leon Guerrero\"",
-      "VI: no governor from nga.org; carried forward \"Albert Bryan\"",
-      "AS: no governor from nga.org; carried forward \"Pula’ali’i Nikolao Pula\"",
-      "MP: no governor from nga.org; carried forward \"David M. Apatang\""
-    ],
+    "warnings": [],
     "errors": [],
     "notices": [
       "4 House seat(s) currently vacant; published as vacancies",
-      "ZIP crosswalk: 33852 ZIPs, 7299 spanning more than one district (21.6%)",
-      "nga.org did not answer; last good 0.8 days ago"
+      "ZIP crosswalk: 33852 ZIPs, 7299 spanning more than one district (21.6%)"
     ],
     "ok": true
   }
