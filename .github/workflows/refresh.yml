@@ -76,20 +76,45 @@ jobs:
           git commit -m "chore(data): refresh dynamic civics answers"
           git push
 
-      # No-ops when WPCOM_TOKEN is absent, so this is useful before the
-      # WordPress credentials exist and better once they do.
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      # Deliberately last, and deliberately non-fatal.
+      #
+      # This used to run before the Pages upload and fail the job when the
+      # WordPress token expired, which skipped the deploy: the repo held current
+      # data while the live feed sat three days stale, because a cosmetic page
+      # update could not be made. The feed is what the app reads; a marketing
+      # page is not allowed to hold it hostage, and an expired token for it is
+      # not a build failure. The outcome goes to the run summary instead.
       - name: Update the page on uscivicstest.us
         if: steps.diff.outputs.changed == 'true' || inputs.publish
+        id: wordpress
+        continue-on-error: true
         env:
           WPCOM_TOKEN: ${{ secrets.WPCOM_TOKEN }}
           WPCOM_SITE_ID: "253454740"
           WPCOM_PAGE_ID: "295"
         run: node scripts/dynamic-answers/push-wordpress.mjs
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: public
+      - name: Report the WordPress result
+        if: always() && steps.wordpress.conclusion != 'skipped'
+        run: |
+          if [ "${{ steps.wordpress.outcome }}" = "success" ]; then
+            echo "WordPress page updated." >> "$GITHUB_STEP_SUMMARY"
+          else
+            {
+              echo "### WordPress page NOT updated"
+              echo ""
+              echo "The feed and GitHub Pages published normally - only uscivicstest.us/current-answers is behind."
+              echo "Most likely the WPCOM_TOKEN secret has expired; re-issue it from the"
+              echo "CivicsPro data bot application (client id 145694), or delete the secret"
+              echo "to turn the page push off cleanly."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
 
   deploy:
     needs: refresh
