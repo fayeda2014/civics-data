@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-29T18:36:04.917Z",
+  "generatedAt": "2026-08-30T14:26:21.574Z",
   "dynamicKinds": [
     "president",
     "vicePresident",
@@ -23,28 +23,28 @@
       "source": "whitehouse.gov",
       "sourceUrl": "https://www.whitehouse.gov/administration/",
       "confidence": "official",
-      "verifiedAt": "2026-08-29T18:36:04.917Z"
+      "verifiedAt": "2026-08-30T14:26:21.574Z"
     },
     "vicePresident": {
       "value": "JD Vance",
       "source": "whitehouse.gov",
       "sourceUrl": "https://www.whitehouse.gov/administration/",
       "confidence": "official",
-      "verifiedAt": "2026-08-29T18:36:04.917Z"
+      "verifiedAt": "2026-08-30T14:26:21.574Z"
     },
     "speaker": {
       "value": "Mike Johnson",
       "source": "house.gov",
       "sourceUrl": "https://www.house.gov/leadership",
       "confidence": "official",
-      "verifiedAt": "2026-08-29T18:36:04.917Z"
+      "verifiedAt": "2026-08-30T14:26:21.574Z"
     },
     "chiefJustice": {
       "value": "John G. Roberts, Jr.",
       "source": "supremecourt.gov",
       "sourceUrl": "https://www.supremecourt.gov/about/biographies.aspx",
       "confidence": "official",
-      "verifiedAt": "2026-08-29T18:36:04.917Z"
+      "verifiedAt": "2026-08-30T14:26:21.574Z"
     }
   },
   "states": {
@@ -5805,13 +5805,13 @@
       }
     ],
     "sourceLastOk": {
-      "house.gov/leadership": "2026-08-29T18:36:04.917Z",
-      "whitehouse.gov": "2026-08-29T18:36:04.917Z",
-      "supremecourt.gov": "2026-08-29T18:36:04.917Z",
-      "clerk.house.gov": "2026-08-29T18:36:04.917Z",
-      "senate.gov": "2026-08-29T18:36:04.917Z",
-      "nga.org": "2026-08-29T18:36:04.917Z",
-      "zip-districts crosswalk": "2026-08-29T18:36:04.917Z"
+      "house.gov/leadership": "2026-08-30T14:26:21.574Z",
+      "whitehouse.gov": "2026-08-30T14:26:21.574Z",
+      "supremecourt.gov": "2026-08-30T14:26:21.574Z",
+      "clerk.house.gov": "2026-08-30T14:26:21.574Z",
+      "senate.gov": "2026-08-30T14:26:21.574Z",
+      "nga.org": "2026-08-30T14:26:21.574Z",
+      "zip-districts crosswalk": "2026-08-30T14:26:21.574Z"
     },
     "warnings": [],
     "errors": [],
