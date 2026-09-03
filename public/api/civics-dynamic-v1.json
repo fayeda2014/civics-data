@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-03T13:37:27.195Z",
+  "generatedAt": "2026-09-03T23:43:27.798Z",
   "dynamicKinds": [
     "president",
     "vicePresident",
@@ -23,28 +23,28 @@
       "source": "whitehouse.gov",
       "sourceUrl": "https://www.whitehouse.gov/administration/",
       "confidence": "official",
-      "verifiedAt": "2026-09-03T13:37:27.195Z"
+      "verifiedAt": "2026-09-03T23:43:27.798Z"
     },
     "vicePresident": {
       "value": "JD Vance",
       "source": "whitehouse.gov",
       "sourceUrl": "https://www.whitehouse.gov/administration/",
       "confidence": "official",
-      "verifiedAt": "2026-09-03T13:37:27.195Z"
+      "verifiedAt": "2026-09-03T23:43:27.798Z"
     },
     "speaker": {
       "value": "Mike Johnson",
       "source": "house.gov",
       "sourceUrl": "https://www.house.gov/leadership",
       "confidence": "official",
-      "verifiedAt": "2026-09-03T13:37:27.195Z"
+      "verifiedAt": "2026-09-03T23:43:27.798Z"
     },
     "chiefJustice": {
       "value": "John G. Roberts, Jr.",
       "source": "supremecourt.gov",
       "sourceUrl": "https://www.supremecourt.gov/about/biographies.aspx",
       "confidence": "official",
-      "verifiedAt": "2026-09-03T13:37:27.195Z"
+      "verifiedAt": "2026-09-03T23:43:27.798Z"
     }
   },
   "states": {
@@ -406,7 +406,7 @@
         "11": "Nancy Pelosi",
         "12": "Lateefah Simon",
         "13": "Adam Gray",
-        "14": null,
+        "14": "Aisha Wahab",
         "15": "Kevin Mullin",
         "16": "Sam Liccardo",
         "17": "Ro Khanna",
@@ -553,8 +553,11 @@
         },
         "14": {
           "district": 14,
-          "name": null,
-          "vacant": true
+          "name": "Aisha Wahab",
+          "officialName": "Aisha Wahab",
+          "lastName": "Wahab",
+          "party": "D",
+          "bioguideId": "W000832"
         },
         "15": {
           "district": 15,
@@ -5808,18 +5811,18 @@
       }
     ],
     "sourceLastOk": {
-      "house.gov/leadership": "2026-09-03T13:37:27.195Z",
-      "whitehouse.gov": "2026-09-03T13:37:27.195Z",
-      "supremecourt.gov": "2026-09-03T13:37:27.195Z",
-      "clerk.house.gov": "2026-09-03T13:37:27.195Z",
-      "senate.gov": "2026-09-03T13:37:27.195Z",
-      "nga.org": "2026-09-03T13:37:27.195Z",
-      "zip-districts crosswalk": "2026-09-03T13:37:27.195Z"
+      "house.gov/leadership": "2026-09-03T23:43:27.798Z",
+      "whitehouse.gov": "2026-09-03T23:43:27.798Z",
+      "supremecourt.gov": "2026-09-03T23:43:27.798Z",
+      "clerk.house.gov": "2026-09-03T23:43:27.798Z",
+      "senate.gov": "2026-09-03T23:43:27.798Z",
+      "nga.org": "2026-09-03T23:43:27.798Z",
+      "zip-districts crosswalk": "2026-09-03T23:43:27.798Z"
     },
     "warnings": [],
     "errors": [],
     "notices": [
-      "3 House seat(s) currently vacant; published as vacancies",
+      "2 House seat(s) currently vacant; published as vacancies",
       "ZIP crosswalk: 33852 ZIPs, 7299 spanning more than one district (21.6%)"
     ],
     "ok": true
